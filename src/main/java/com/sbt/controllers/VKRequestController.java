@@ -1,12 +1,12 @@
 package com.sbt.controllers;
 
 import com.sbt.exceptions.IdFormatException;
-import com.sbt.services.BaseService;
+import com.sbt.services.IBaseService;
 import com.sbt.services.Checker;
 import com.sbt.services.VKRequestService;
 
-public class VKRequestController  {
-    private BaseService service;
+public class VKRequestController implements IBaseController {
+    private IBaseService service;
 
     public VKRequestController(){
         service = new VKRequestService();
@@ -14,8 +14,7 @@ public class VKRequestController  {
 
     public boolean auth(String code){
         try {
-            service.auth(code);
-            return true;
+            return service.auth(code);
         } catch (Exception e) {
             e.printStackTrace();
         }

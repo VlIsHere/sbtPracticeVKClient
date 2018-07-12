@@ -1,5 +1,6 @@
 package com.sbt.views;
 
+import com.sbt.controllers.IBaseController;
 import com.sbt.controllers.VKRequestController;
 import com.sbt.exceptions.IdFormatException;
 
@@ -13,14 +14,14 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class VKView implements BaseView{
+public class VKView implements IBaseView {
     private JFrame mainFrame;
     private Font myFont;
     private JTextField idVKField;
     private JTextField codeField;
     private JPanel mainPanel;
     private JTextArea idVKTextArea;
-    private VKRequestController controller;
+    private IBaseController controller;
     private JLabel idVKLabel;
     private JLabel codeLabel;
     private JLabel urlForCodeLabel;
@@ -30,7 +31,7 @@ public class VKView implements BaseView{
     private boolean isAuthorize;
     private final String[] choiceStrings = { "getInfoById", "getIdByMaxLikesOnWall"};
 
-    public VKView(String titleOfFrame, int x, int y, VKRequestController controller) {
+    public VKView(String titleOfFrame, int x, int y, IBaseController controller) {
         this.controller = controller;
         mainFrame = new JFrame(titleOfFrame);
         myFont = new Font("sanserif", Font.BOLD, 17);
@@ -42,7 +43,7 @@ public class VKView implements BaseView{
         addTopanel();
     }
 
-    private void init() {
+    public void init() {
         idVKField = new JTextField("90830190", 15);
         codeField = new JTextField("",15);
         idVKLabel = new JLabel("ID VK: ");
@@ -60,7 +61,7 @@ public class VKView implements BaseView{
         goButtn = new JButton("GO!");
     }
 
-    private void addListeners(){
+    public void addListeners(){
         urlForCodeLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -71,7 +72,7 @@ public class VKView implements BaseView{
         goButtn.addActionListener(this::doQuery);
     }
 
-    private void addTopanel(){
+    public void addTopanel(){
         JPanel south = new JPanel();
         south.add(urlForCodeLabel);
         mainPanel = new JPanel();

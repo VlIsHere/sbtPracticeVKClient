@@ -28,7 +28,7 @@ import static com.vk.api.sdk.queries.users.UserField.*;
  * https://oauth.vk.com/authorize?client_id=6623093&display=page&redirect_uri=https://oauth.vk.com/getItForMe.html&scope=offline&response_type=code&v=5.80
  */
 
-public class VKRequestService implements BaseService {
+public class VKRequestService implements IBaseService {
     private UserActor sActor;
     private VkApiClient vkClient;
     private TransportClient transportClient;
@@ -38,7 +38,7 @@ public class VKRequestService implements BaseService {
             vkClient = new VkApiClient(transportClient);
     }
 
-    public void auth(String codeForAuth) throws ClientException, ApiException {
+    public boolean auth(String codeForAuth) throws ClientException, ApiException {
             UserAuthResponse authResponse =  vkClient.oauth()
                     .userAuthorizationCodeFlow(ApplicationVk.APP_ID,
                             ApplicationVk.APP_CLIENT_SECRET,
@@ -46,6 +46,7 @@ public class VKRequestService implements BaseService {
                     .execute();
 
             sActor = new UserActor(authResponse.getUserId(), authResponse.getAccessToken());
+            return true;
     }
 
     @Override
