@@ -31,12 +31,8 @@ public class TestService {
     @Test
     public void testCallAuth(){
         Mockito.when(controller.auth(code)).thenReturn(true);
-
         Assert.assertEquals(controller.auth(code),true);
-
-
         Mockito.verify(controller, Mockito.times(1)).auth(code);
-
     }
 
     @Test

@@ -1,9 +1,9 @@
 package com.sbt.views;
 
 public interface IBaseView {
-    public void init();
+    void init();
 
-    public void addListeners();
+    void addListeners();
 
-    public void addTopanel();
+    void addTopanel();
 }
