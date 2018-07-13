@@ -2,7 +2,7 @@ package com.sbt.controllers;
 
 import com.sbt.exceptions.IdFormatException;
 import com.sbt.services.IBaseService;
-import com.sbt.services.Checker;
+import com.sbt.utils.Checker;
 import com.sbt.services.VKRequestService;
 
 public class VKRequestController implements IBaseController {

@@ -38,8 +38,9 @@ public class VKRequestService implements IBaseService {
             vkClient = new VkApiClient(transportClient);
     }
 
+    @Override
     public boolean auth(String codeForAuth) throws ClientException, ApiException {
-            UserAuthResponse authResponse =  vkClient.oauth()
+        UserAuthResponse authResponse =  vkClient.oauth()
                     .userAuthorizationCodeFlow(ApplicationVk.APP_ID,
                             ApplicationVk.APP_CLIENT_SECRET,
                             ApplicationVk.RE_DIRECT,codeForAuth)

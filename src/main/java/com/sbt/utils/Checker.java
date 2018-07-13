@@ -1,4 +1,4 @@
-package com.sbt.services;
+package com.sbt.utils;
 
 import com.sbt.exceptions.IdFormatException;
 

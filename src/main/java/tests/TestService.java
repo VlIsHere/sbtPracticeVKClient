@@ -2,37 +2,41 @@ package tests;
 
 import com.sbt.controllers.VKRequestController;
 import com.sbt.exceptions.IdFormatException;
-import com.sbt.services.IBaseService;
+import com.sbt.services.VKRequestService;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.mockito.internal.verification.checkers.NumberOfInvocationsChecker;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.verification.VerificationMode;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestService {
-    private String code = "ea6eea5aed2089a3ef";
+    private String code = "af42d1f70757f9ec81";
     private String id = "1";
+
     @Mock
-    private IBaseService service;
+    public VKRequestService service;
 
     @Spy
-    private VKRequestController controller = Mockito.mock(VKRequestController.class);
-
+    public VKRequestController controller = Mockito.mock(VKRequestController.class);
 
     @Test
     public void testCallAuth(){
         Mockito.when(controller.auth(code)).thenReturn(true);
-        Assert.assertEquals(controller.auth(code),true);
+
+        Assert.assertTrue(controller.auth(code));
         Mockito.verify(controller, Mockito.times(1)).auth(code);
+        try {
+            Mockito.when(service.auth(code)).thenReturn(true);
+            Assert.assertTrue(service.auth(code));
+            Mockito.verify(service,Mockito.times(1)).auth(code);
+        } catch (ClientException | ApiException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -60,10 +64,11 @@ public class TestService {
                     "Город - Санкт-Петербург";
             Mockito.when(controller.getInfoById(id)).thenReturn(res);
             Assert.assertEquals(controller.getInfoById(id),res);
+            Mockito.verify(controller, Mockito.times(1)).getInfoById(id);
         } catch (IdFormatException e) {
             e.printStackTrace();
         }
-        Mockito.verify(service.getInfoUserById(id));
+
     }
 
     @Test
@@ -76,8 +81,8 @@ public class TestService {
         try {
             Mockito.when(controller.getIdByMaxLikesOnWall(id)).thenReturn(res);
             Assert.assertEquals(controller.getIdByMaxLikesOnWall(id),res);
-            Mockito.verify(service.getIdByMaxLikesOnWall(id));
-        } catch (IdFormatException | ClientException | ApiException e) {
+            Mockito.verify(controller,Mockito.times(1)).getIdByMaxLikesOnWall(id);
+        } catch (IdFormatException e) {
             e.printStackTrace();
         }
     }

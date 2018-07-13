@@ -1,7 +1,6 @@
 package com.sbt.views;
 
 import com.sbt.controllers.IBaseController;
-import com.sbt.controllers.VKRequestController;
 import com.sbt.exceptions.IdFormatException;
 
 import javax.swing.*;
